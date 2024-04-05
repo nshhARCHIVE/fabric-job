@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: ${K8S_NAMESPACE}
+  name: fabric-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fabric-pv
+  resources:
+    requests:
+      storage: 4Gi

@@ -1,0 +1,30 @@
+---
+#---------------- Chaincode Deployment ---------------------
+apiVersion: apps/v1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: chaincode-marbles-org
+  labels:
+    app: chaincode-marbles-org
+spec:
+  selector:
+    matchLabels:
+      app: chaincode-marbles-org
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: chaincode-marbles-org
+    spec:
+      containers:
+        - image: paragones/chaincode-marbles:1.0
+          name: chaincode-marbles-org1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CHAINCODE_CCID
+              value: "marbles:923293d4cc446115e3847de0584b8c925d628d75abb118c842036df13edeee9c"
+            - name: CHAINCODE_ADDRESS
+              value: "0.0.0.0:7052"
+          ports:
+            - containerPort: 7052

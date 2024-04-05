@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: ${K8S_NAMESPACE}
+  name: peer1org2-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: peer1org2-pv
+  resources:
+    requests:
+      storage: 1Gi

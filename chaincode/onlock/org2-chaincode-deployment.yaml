@@ -1,0 +1,33 @@
+---
+#---------------- Chaincode Deployment ---------------------
+apiVersion: apps/v1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: onlock-chaincode-org2
+  labels:
+    app: onlock-chaincode-org2
+spec:
+  selector:
+    matchLabels:
+      app: onlock-chaincode-org2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: onlock-chaincode-org2
+    spec:
+      hostname: onlock-chaincode-org2
+      containers:
+        - image: 880382163732.dkr.ecr.us-east-1.amazonaws.com/onlock-blockchain-chaincode:13
+          name: onlock-chaincode-org2
+          imagePullPolicy: Always
+          env:
+            - name: CHAINCODE_ID
+              value: "onlock:1748ee6116d2f2f768c9b3a83710c38088018647d76ac1098ff2a244fbfdd6e2"
+            - name: CHAINCODE_SERVER_ADDRESS
+              value: "0.0.0.0:9999"            
+            - name: TZ
+              value: "America/Sao_Paulo"
+          ports:
+            - containerPort: 9999

@@ -1,0 +1,49 @@
+{
+    "name": "test-network-org${ORG}",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Org${ORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "6000"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Org${ORG}": {
+            "mspid": "Org${ORG}MSP",
+            "peers": [
+                "blockchain-org1peer1"
+            ],
+            "certificateAuthorities": [
+                "blockchain-ca"
+            ]
+        }
+    },
+    "peers": {
+        "blockchain-org1peer1": {
+            "url": "grpc://blockchain-org${ORG}peer1:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org${ORG}.vault.com",
+                "hostnameOverride": "peer0.org${ORG}.vault.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "blockchain-ca": {
+            "url": "http://blockchain-ca:${CAPORT}",
+            "caName": "CA1",
+            "tlsCACerts": {
+                "pem": ["${CAPEM}"]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}
